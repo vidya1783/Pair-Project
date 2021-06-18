@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.techelevator</groupId>
-  <artifactId>m02-week-2-review-final</artifactId>
+  <artifactId>m02-week-2-review</artifactId>
   <version>1.0</version>
   <build>
     <plugins>
