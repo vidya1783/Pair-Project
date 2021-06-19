@@ -46,8 +46,15 @@ public class JdbcReservationDao implements ReservationDao {
         List<Reservation> reservations = new ArrayList<>();
         String sql = "SELECT r.reservation_id, site_id, name, from_date, to_date, create_date" +
                 "FROM reservation r" +
-                "JOIN campground ON r.site_id = "
-        return null;
+                "JOIN site ON r.site_id = s.site_id" +
+                "JOIN campground ON site.campground_id = campground.campground_id" +
+                "JOIN park ON campground.park_id = park.park_id" +
+                "WHERE park_id = ?;";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, parkId);
+        while(results.next()){
+            reservations.add(mapRowToReservation(results));
+        }
+        return reservations;
     }
 
     private Reservation mapRowToReservation(SqlRowSet results) {

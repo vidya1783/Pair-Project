@@ -34,6 +34,17 @@ public class JdbcSiteDao implements SiteDao {
         return sites;
     }
 
+   /* The application needs the ability to search for currently available
+    sites in a given park for a customer who didn't make a reservation.
+    A site is unavailable if there's a current reservation for the site.*/
+
+
+    public List<Site> searchAvailableSites (int parkId){
+        List<Site> sites = new ArrayList<>();
+        String sql = "SELECT site.site_id, site.campground_id,site.site_number,site.max_occupancy "
+
+    }
+
     private Site mapRowToSite(SqlRowSet results) {
         Site site = new Site();
         site.setSiteId(results.getInt("site_id"));
