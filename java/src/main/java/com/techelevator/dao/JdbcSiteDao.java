@@ -39,11 +39,11 @@ public class JdbcSiteDao implements SiteDao {
     A site is unavailable if there's a current reservation for the site.*/
 
 
-    public List<Site> searchAvailableSites (int parkId){
+    /*public List<Site> searchAvailableSites (int parkId){
         List<Site> sites = new ArrayList<>();
         String sql = "SELECT site.site_id, site.campground_id,site.site_number,site.max_occupancy "
 
-    }
+    }*/
 
     private Site mapRowToSite(SqlRowSet results) {
         Site site = new Site();

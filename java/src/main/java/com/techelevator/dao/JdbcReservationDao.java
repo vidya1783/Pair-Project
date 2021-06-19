@@ -23,16 +23,11 @@ public class JdbcReservationDao implements ReservationDao {
     public int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate) {
 
         String sql = "INSERT INTO reservation (site_id, name, from_date, to_date) " +
-                "VALUES (?, ?, ?, ?) RETURNING reservation_id;";
+                "VALUES (?, ?, ?, ?);";
 
+        int newId = jdbcTemplate.update(sql, siteId, name, fromDate, toDate, LocalDate.now());
 
-        int newId = jdbcTemplate.queryForObject(sql,int.class,
-                reservation.getSiteId(),
-                reservation.getName(),
-                reservation.getFromDate(),
-                reservation.getToDate());
-
-        return reservation.getReservationId(newId);
+        return newId;
 
     }
    /* The application needs the ability to view a list of all upcoming
@@ -44,7 +39,7 @@ public class JdbcReservationDao implements ReservationDao {
     @Override
     public List<Reservation> upcomingReservation(int parkId) {
         List<Reservation> reservations = new ArrayList<>();
-        String sql = "SELECT r.reservation_id, site_id, name, from_date, to_date, create_date" +
+        String sql = "SELECT r.reservation_id,  r.site_id, r.name, r.from_date, r.to_date, r.create_date" +
                 "FROM reservation r" +
                 "JOIN site ON r.site_id = s.site_id" +
                 "JOIN campground ON site.campground_id = campground.campground_id" +
