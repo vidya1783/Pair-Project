@@ -11,7 +11,7 @@ public class Reservation {
     private LocalDate toDate;
     private LocalDate createDate;
 
-    public int getReservationId() {
+    public int getReservationId(int newId) {
         return reservationId;
     }
 

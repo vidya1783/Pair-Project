@@ -22,8 +22,8 @@ public class JdbcParkDaoTests extends BaseDaoTests {
         List<Park> parks = dao.getAllParks();
 
         assertEquals(2, parks.size());
-        assertEquals("Ohio", parks.get(0).getLocation());
-        assertEquals("Pennsylvania", parks.get(1).getLocation());
+        assertEquals("Pennsylvania", parks.get(0).getLocation());
+        assertEquals("Ohio", parks.get(1).getLocation());
     }
 
 }

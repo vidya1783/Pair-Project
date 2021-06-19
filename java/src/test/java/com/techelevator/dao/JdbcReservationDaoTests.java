@@ -16,6 +16,7 @@ public class JdbcReservationDaoTests extends BaseDaoTests {
         dao = new JdbcReservationDao(dataSource);
     }
 
+
     @Test
     public void createReservation_Should_ReturnNewReservationId() {
         int reservationCreated = dao.createReservation(9999,
@@ -25,5 +26,4 @@ public class JdbcReservationDaoTests extends BaseDaoTests {
 
         assertEquals(reservationCreated, 1);
     }
-
 }
