@@ -19,7 +19,7 @@ public class JdbcSiteDao implements SiteDao {
 
     @Override
     public List<Site> getSitesThatAllowRVs(int parkId) {
-        List<Site>sites= new ArrayList<>();
+        List<Site> sites= new ArrayList<>();
 
         String sql = "SELECT site.site_id, site.campground_id, site.site_number,site.max_occupancy," +
                 "site.accessible,site.max_rv_length, site.utilities " +
