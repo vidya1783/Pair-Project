@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Site;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,11 +25,16 @@ public class JdbcSiteDaoTests extends BaseDaoTests {
         assertEquals(2,sites.size());
     }
 
+    @Test
     public void getAvailableSites_Should_ReturnSites() {
-
+        int parkId = 99;
+        int expected = 2;
+        List<Site> availableSites = dao.getAvailableSites(parkId);
+        int actual = availableSites.size();
+        Assert.assertEquals(expected, actual);
     }
-
     public void getAvailableSitesDateRange_Should_ReturnSites() {
+
 
     }
 }

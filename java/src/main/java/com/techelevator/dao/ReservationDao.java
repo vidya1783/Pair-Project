@@ -10,5 +10,6 @@ public interface ReservationDao {
 
     int createReservation(int siteId, String name, LocalDate fromDate, LocalDate toDate);
 
-    public List<Reservation> upcomingReservation(int parkId);
+    List<Reservation> viewUpcomingReservations(int parkId);
+
 }

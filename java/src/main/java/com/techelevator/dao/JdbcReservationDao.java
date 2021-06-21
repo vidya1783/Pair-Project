@@ -25,31 +25,24 @@ public class JdbcReservationDao implements ReservationDao {
         String sql = "INSERT INTO reservation (site_id, name, from_date, to_date) " +
                 "VALUES (?, ?, ?, ?);";
 
-        int newId = jdbcTemplate.update(sql, siteId, name, fromDate, toDate, LocalDate.now());
+        int createReservation = jdbcTemplate.update(sql, siteId, name, fromDate, toDate);
 
-        return newId;
+        return createReservation;
 
     }
-   /* The application needs the ability to view a list of all upcoming
-    reservations within the next 30 days for a selected park.
-    A reservation includes a reservation ID, site ID, name, start date, end date, and date created.
-    Find the correct classes where you'll need to write this method and test.
-    The test data returns two reservations for test parkId 99.*/
-
     @Override
-    public List<Reservation> upcomingReservation(int parkId) {
-        List<Reservation> reservations = new ArrayList<>();
-        String sql = "SELECT r.reservation_id,  r.site_id, r.name, r.from_date, r.to_date, r.create_date" +
-                "FROM reservation r" +
-                "JOIN site ON r.site_id = s.site_id" +
-                "JOIN campground ON site.campground_id = campground.campground_id" +
-                "JOIN park ON campground.park_id = park.park_id" +
-                "WHERE park_id = ?;";
+    public List<Reservation> viewUpcomingReservations(int parkId) {
+        List<Reservation> futureReservations = new ArrayList<>();
+        String sql = "SELECT reservation_id, r.site_id, r.name, from_date, to_date, create_date "
+                + "FROM reservation r " + "JOIN site s ON s.site_id = r.site_id "
+                + "JOIN campground c ON c.campground_id = s.campground_id "
+                + "WHERE from_date  >= CURRENT_DATE and from_date <= (CURRENT_DATE + INTERVAL '30 days')AND park_id = ? "
+                + "ORDER BY create_date DESC;";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, parkId);
-        while(results.next()){
-            reservations.add(mapRowToReservation(results));
+        while (results.next()){
+            futureReservations.add(mapRowToReservation(results));
         }
-        return reservations;
+        return futureReservations;
     }
 
     private Reservation mapRowToReservation(SqlRowSet results) {

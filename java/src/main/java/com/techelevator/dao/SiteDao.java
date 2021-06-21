@@ -8,5 +8,5 @@ import java.util.List;
 public interface SiteDao {
 
     List<Site> getSitesThatAllowRVs(int parkId);
-    List<Site> searchAvailableSites (int parkId);
+    List<Site> getAvailableSites(int parkId);
 }
